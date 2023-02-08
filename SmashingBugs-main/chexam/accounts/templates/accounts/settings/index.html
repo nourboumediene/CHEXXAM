@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block scripts %}
+    <script type="module" src="{% static 'js/accounts/settings/changePassword.js' %}"></script>
+{% endblock %}
+
+{% block stylesheets %}
+
+    <style>
+        main {
+            background: linear-gradient(76.17deg, #0089D8 57.21%, #3C4986 72.63%, #423E7D 77.28%, #522066 90.43%);
+        }
+
+        .glass {
+            background: linear-gradient(117.23deg, rgba(255, 255, 255, 0.48) 0%, rgba(255, 255, 255, 0.12) 100%);
+            backdrop-filter: blur(87.6994px);
+        }
+
+        .circle1 {
+
+            background: linear-gradient(180deg, #030452 0%, #5B2877 50%);
+            filter: blur(250px);
+        }
+
+        .circle2 {
+            background: linear-gradient(180deg, #030452 0%, #5B2877 50%);
+            filter: blur(210px);
+        }
+
+        aside {
+            background: linear-gradient(117.23deg, rgba(255, 255, 255, 0.48) 0%, rgba(255, 255, 255, 0.12) 100%);
+            backdrop-filter: blur(87.6994px);
+        }
+
+        .module {
+            background: linear-gradient(135.17deg, rgba(255, 255, 255, 0.66) 6.15%, rgba(255, 255, 255, 0.396) 95.16%);
+            box-shadow: 4.38497px 4.38497px 9.86618px rgba(0, 0, 0, 0.25);
+        }
+
+        .user-profile:hover + aside {
+            display: none;
+        }
+
+        .card {
+
+            background: linear-gradient(117.23deg, rgba(255, 255, 255, 0.60) 0%, rgba(255, 255, 255, 0.20) 100%);
+            backdrop-filter: blur(87.6994px);
+
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="flex flex-row space-x-10 mt-4 justify-center">
+        <div class="card px-2 py-4 w-80 justify-center items-center  flex flex-col  rounded-md shadow-lg">
+            <img src="{% include 'accounts/components/profile_img.html' %}" class="w-32 rounded-full" alt="">
+            <div class="flex flex-col text-center space-y-0.5 mt-2">
+                <span class="font-bold text-gray-800">{{ request.user.get_full_name }}</span>
+                <span class="text-gray-800 text-sm">{{ role }}</span>
+            </div>
+
+            <form class="space-y-4 flex flex-col mt-4 justify-center items-center w-full" method="POST">
+                {% csrf_token %}
+                <div class="flex bg-white px-4 py-3 rounded w-4/5 s  shadow-lg justify-center items-center">
+
+                    <label for="email"><i class="fa-solid fa-envelope w-5 pl-2 pr-7"></i></label>
+                    {{ form.email }}
+                </div>
+                <div class="text-red-500">
+                    {{ form.email.errors|escape }}
+                </div>
+
+                <button type="submit"
+                        class="flex flex-row hover:bg-green-600 transition-all text-white py-2 px-3 justify-center items-center rounded-xl shadow-lg  bg-gray-800 space-x-2">
+                    <i class="fa-solid fa-pen"></i>
+                    <span class="font-semibold">Update</span>
+                </button>
+            </form>
+        </div>
+
+        <div class="space-y-10">
+            <div class="card rounded-lg py-5 px-10 flex flex-col items-center shadow-lg justify-center h-fit space-y-5">
+                <span class="font-bold">Change Password</span>
+                <a href="{% url 'edit_password' %}" class="flex flex-row hover:bg-red-600 transition-all text-white py-2 w-fit px-3 justify-center items-center rounded-xl shadow-lg  bg-gray-800 space-x-2">
+                    <i class="fa-solid fa-pen"></i>
+                    <span class="font-semibold text-sm">Change</span>
+                </a>
+            </div>
+            <div class="card rounded-lg py-5 px-10 flex flex-col items-center shadow-lg justify-center h-fit space-y-5">
+                <span class="font-bold">Consult Reports</span>
+                <button class="flex flex-row hover:bg-blue-700 transition-all text-white py-2 w-fit px-3 justify-center items-center rounded-xl shadow-lg  bg-gray-800 space-x-2">
+                    <i class="fa-solid fa-pen"></i>
+                    <span class="font-semibold text-sm">Consult</span>
+                </button>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

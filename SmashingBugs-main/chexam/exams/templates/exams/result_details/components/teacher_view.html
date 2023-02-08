@@ -1,0 +1,26 @@
+{% load static %}
+
+{% include 'exams/result_details/components/student_view/pdfs.html' with student_view=False%}
+
+{% if result.verified %}
+    {{ result.student.user.get_full_name }} has verified his exam paper
+{% else %}
+    {{ result.student.user.get_full_name }}'s report
+
+    <div class="reports space-y-4 flex flex-col justify-start items-center">
+        {% for problem in problems %}
+            {% include 'exams/result_details/components/problem_teacher_view.html' with problem=problem %}
+        {% endfor %}
+    </div>
+
+    {% if not result.verified %}
+        <form action="{% url 'verify_result' result.id %}" method="post" class="mt-10 flex justify-end pr-10">
+            {% csrf_token %}
+            <button type="submit"
+                    class="flex space-x-2 items-center transition-all text-green-600 hover:bg-green-600 hover:text-white  justify-center bg-white py-1.5 rounded-lg bg-opacity-40 px-3">
+                <i class="fa-solid fa-check"></i>
+                <span class=" font-semibold">Verify</span>
+            </button>
+        </form>
+    {% endif %}
+{% endif %}

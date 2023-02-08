@@ -1,0 +1,22 @@
+<div id="main-content">
+    {% include 'exams/result_details/components/student_view/pdfs.html' with student_view=True %}
+    {% include 'exams/result_details/components/student_view/report_form.html' %}
+</div>
+{% include 'exams/result_details/components/student_view/problem_form.html' %}
+
+<script>
+    const addProblemFormOverlay = document.querySelector("#add-problem-form-overlay");
+    const reportBtn = document.querySelector("#report-btn");
+    const closeFormBtn = document.querySelector("#close-form-btn");
+    const mainContent = document.querySelector("#main-content");
+
+    reportBtn.addEventListener('click', function () {
+        addProblemFormOverlay.classList.remove("hidden");
+        mainContent.classList.add("hidden");
+    });
+
+    closeFormBtn.addEventListener('click', function () {
+        addProblemFormOverlay.classList.add("hidden");
+        mainContent.classList.remove("hidden");
+    });
+</script>
